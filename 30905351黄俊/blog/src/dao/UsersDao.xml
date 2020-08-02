@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UsersDao">
+	
+	<select id="getAllUsers" resultType="Users">
+		select * from users limit #{pageNum},#{pageSize}
+	</select>
+	
+	<select id="findUserByUsername" resultType="Users">
+		select * from users 
+		<where>
+			<if test="username !=null and username !=''">
+				username=#{username}
+			</if>
+			<if test="password !=null and password !=''">
+				password=#{password}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(*) from users 
+	</select>
+	
+	<delete id="deleteById">
+		delete from users where id=#{id}
+	</delete>
+	
+	<insert id="addUser">
+		INSERT INTO users(username,password,age,sex,nickname,mobile,address,supper,picpath)
+		 values(#{username},#{password},#{age},#{sex},#{nickname},#{mobile},#{address},0,#{picpath})
+	</insert>
+	
+	<select id="getAllBlog" resultType="Blog">
+		select * from blog limit #{pageNum},#{pageSize}
+	</select>
+	
+	<delete id="deleteblog">
+		delete from blog where id=#{id}
+	</delete>
+	
+	<insert id="addBlog">
+		INSERT INTO blog(content,publishtime,userid)
+		 values(#{content},#{publishtime},#{userid})
+	</insert>
+	
+</mapper>
